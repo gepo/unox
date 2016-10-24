@@ -22,7 +22,7 @@ import sys
 import os
 import time
 import fsevents
-import urllib
+import urllib.parse
 import traceback
 
 my_log_prefix = "[unox]"
@@ -75,7 +75,7 @@ def warn(msg):
 def sendCmd(cmd, args):
     raw_cmd = cmd
     for arg in args:
-        raw_cmd += " " + urllib.quote(arg);
+        raw_cmd += " " + urllib.parse.quote(arg);
     if _in_debug: _debug("sendCmd: " + raw_cmd)
     sys.stdout.write(raw_cmd + "\n")
 
@@ -105,7 +105,7 @@ def recvCmd():
     words = line.strip().split(" ")
     args = []
     for word in words[1:]:
-        args.append(urllib.unquote(word))
+        args.append(urllib.parse.unquote(word))
     return [words[0], args]
 
 def pathTokenize(path):
